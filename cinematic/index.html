@@ -9,50 +9,37 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,900&family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --espresso:#1a0e0a; --maroon:#5e1f29; --terra:#e08a4a; --amber:#f0b46b;
-    --cream:#f7ecdf; --ink:#1a0e0a;
-  }
+  :root{ --espresso:#1a0e0a; --maroon:#5e1f29; --terra:#e08a4a; --amber:#f0b46b; --cream:#f7ecdf; }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:auto}
-  body{font-family:'Archivo',sans-serif;background:var(--espresso);color:var(--cream);font-weight:400;line-height:1.6;overflow-x:hidden}
+  body{font-family:'Archivo',sans-serif;background:var(--espresso);color:var(--cream);line-height:1.6;overflow-x:hidden}
   h1,h2,.display{font-family:'Fraunces',serif}
-  .bar{position:fixed;top:0;left:0;right:0;z-index:60;background:rgba(20,10,7,.6);backdrop-filter:blur(6px);color:#f7ecdf;text-align:center;padding:7px;font-size:12px;letter-spacing:.06em}
+  .bar{position:fixed;top:0;left:0;right:0;z-index:60;background:rgba(20,10,7,.6);backdrop-filter:blur(6px);text-align:center;padding:7px;font-size:12px;letter-spacing:.06em}
   .bar b{color:var(--amber)}
 
-  /* HERO (pinned, scrubbed) */
-  .hero{position:relative;height:100vh;width:100%;overflow:hidden;
-        background:radial-gradient(120% 100% at 50% 20%, #3a1a12 0%, #1a0e0a 70%);}
+  .hero{position:relative;height:100vh;width:100%;overflow:hidden;background:radial-gradient(120% 100% at 50% 20%, #3a1a12 0%, #1a0e0a 70%)}
   #three{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.7}
-  .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;
-              opacity:0;transition:opacity .8s ease}
-  .hero video.ready{opacity:1}
-  .hero .grade{position:absolute;inset:0;z-index:3;
-    background:linear-gradient(180deg, rgba(20,10,7,.25) 0%, rgba(94,31,41,.25) 40%, rgba(20,10,7,.8) 100%);
-    mix-blend-mode:multiply}
-  .hero .vig{position:absolute;inset:0;z-index:3;box-shadow:inset 0 0 240px 60px rgba(20,10,7,.9)}
-  .hero .content{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;
-    align-items:center;justify-content:center;text-align:center;padding:24px}
+  #seq{position:absolute;inset:0;width:100%;height:100%;z-index:2;opacity:0;transition:opacity .8s ease}
+  #seq.ready{opacity:1}
+  .grade{position:absolute;inset:0;z-index:3;background:linear-gradient(180deg, rgba(20,10,7,.2) 0%, rgba(94,31,41,.22) 40%, rgba(20,10,7,.8) 100%);mix-blend-mode:multiply}
+  .vig{position:absolute;inset:0;z-index:3;box-shadow:inset 0 0 240px 60px rgba(20,10,7,.9)}
+  .content{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
   .eyebrow{letter-spacing:.5em;text-transform:uppercase;font-size:12px;color:var(--amber);margin-bottom:22px;font-weight:600}
-  .hero h1{font-weight:900;font-size:clamp(54px,12vw,168px);line-height:.92;
-    background:linear-gradient(180deg,#fff 0%,#f0b46b 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
-    text-shadow:0 8px 60px rgba(0,0,0,.4)}
-  .hero .sub{font-family:'Fraunces';font-style:italic;font-size:clamp(18px,2.6vw,30px);margin-top:18px;color:#f7ecdf;opacity:.95;max-width:18ch}
-  .scrollcue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:5;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#f7ecdf;opacity:.8}
+  .hero h1{font-weight:900;font-size:clamp(54px,12vw,168px);line-height:.92;background:linear-gradient(180deg,#fff 0%,#f0b46b 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 8px 60px rgba(0,0,0,.4)}
+  .hero .sub{font-family:'Fraunces';font-style:italic;font-size:clamp(18px,2.6vw,30px);margin-top:18px;opacity:.95;max-width:18ch}
+  .scrollcue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:5;font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.8}
   .scrollcue span{display:block;width:1px;height:38px;margin:10px auto 0;background:linear-gradient(var(--amber),transparent)}
-  .loader{position:absolute;inset:0;z-index:6;display:flex;align-items:center;justify-content:center;background:var(--espresso);transition:opacity .6s ease}
+  .loader{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;gap:16px;align-items:center;justify-content:center;background:var(--espresso);transition:opacity .6s ease}
   .loader.hide{opacity:0;pointer-events:none}
   .loader .ring{width:46px;height:46px;border:2px solid rgba(240,180,107,.25);border-top-color:var(--amber);border-radius:50%;animation:spin 1s linear infinite}
+  .loader .pct{font-size:12px;letter-spacing:.25em;color:#c9ad8c}
   @keyframes spin{to{transform:rotate(360deg)}}
 
-  /* AFTER HERO — warm bold content */
   .reveal{position:relative;z-index:10;background:var(--espresso)}
   .statement{max-width:1100px;margin:0 auto;padding:clamp(80px,16vw,200px) 28px}
   .statement h2{font-weight:900;font-size:clamp(34px,6vw,86px);line-height:1.02}
   .statement h2 .hl{color:var(--terra)}
   .statement p{font-size:clamp(17px,2vw,22px);max-width:60ch;margin-top:28px;color:#e9d8c6}
-  .cta{display:inline-block;margin-top:44px;background:var(--terra);color:#1a0e0a;font-weight:800;
-    text-decoration:none;padding:18px 46px;border-radius:100px;letter-spacing:.04em;text-transform:uppercase;font-size:14px;transition:.25s}
+  .cta{display:inline-block;margin-top:44px;background:var(--terra);color:#1a0e0a;font-weight:800;text-decoration:none;padding:18px 46px;border-radius:100px;letter-spacing:.04em;text-transform:uppercase;font-size:14px;transition:.25s}
   .cta:hover{transform:translateY(-3px);background:var(--amber);box-shadow:0 18px 50px rgba(224,138,74,.35)}
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 10px 10px}
   .grid img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:4px;display:block}
@@ -66,7 +53,7 @@
 
 <section class="hero" id="hero">
   <canvas id="three"></canvas>
-  <video id="heroVideo" muted playsinline preload="auto" poster=""></video>
+  <canvas id="seq"></canvas>
   <div class="grade"></div>
   <div class="vig"></div>
   <div class="content">
@@ -75,7 +62,7 @@
     <div class="sub" id="sub">You’re sexier than you think.</div>
   </div>
   <div class="scrollcue">Scroll<span></span></div>
-  <div class="loader" id="loader"><div class="ring"></div></div>
+  <div class="loader" id="loader"><div class="ring"></div><div class="pct" id="pct">0%</div></div>
 </section>
 
 <section class="reveal">
@@ -88,15 +75,16 @@
   <footer>Boudoir by Afton — New York, NY · Featured on <a href="https://boudoirphotographyclub.com">Boudoir Photography Club</a></footer>
 </section>
 
-<!-- Libraries -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 const CONFIG = {
-  videoSrc: '../_assets/videos/silhouette-akf.mp4', // all-keyframe encode
+  seqPath: '../_assets/seq/silhouette/', // frame folder
+  frameCount: 192,
+  pad: 4,
   enableThree: true,
-  pinScroll: '220%', // how much scroll distance the scrub spans
+  pinScroll: '240%',
   photos: [
     "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGCUbsfRYyfc2Cif8gEjr7SKMoXAdaI5-phX8IfFMS--ZzD-lLYDqrEzTunJ3NX5E0e1zmKbBY7a0_JyJPMS1KqJH1hm0sZF6pU06qAhX2E1eJE9NaVOj_fhItXSsBv2xOnlijsSw=w1152-h1440-k-no",
     "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHFrwA_VLCTQXg9vCEyNw55jhBoZaV1fNvVwRWLKBxBwVSVf9kErKUeaeW3tC34AfTYAzNHgFc0fs39CV8nf2fM6YhTjGABb1hIFLFzO5kwyDa5LtF14p54vC04R8zGwVSvLkk2=w720-h900-k-no",
@@ -107,92 +95,92 @@ const CONFIG = {
   ]
 };
 
-/* ---------- 1. BLOB-PRELOAD THE VIDEO (smooth seeking, no network stalls) ---------- */
-const video = document.getElementById('heroVideo');
-const loader = document.getElementById('loader');
-function initScrub(){
+/* ---------- IMAGE-SEQUENCE SCRUB ON CANVAS (smooth, no video decoder) ---------- */
+const canvas = document.getElementById('seq');
+const ctx = canvas.getContext('2d');
+const loader = document.getElementById('loader'), pctEl = document.getElementById('pct');
+const frames = new Array(CONFIG.frameCount);
+const state = { f: 0 };
+let loaded = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+function url(i){ return CONFIG.seqPath + String(i + 1).padStart(CONFIG.pad, '0') + '.jpg'; }
+function sizeCanvas(){
+  canvas.width = Math.round(canvas.clientWidth * dpr);
+  canvas.height = Math.round(canvas.clientHeight * dpr);
+}
+function draw(i){
+  const img = frames[Math.max(0, Math.min(CONFIG.frameCount - 1, i))];
+  if(!img || !img.complete || !img.naturalWidth) return;
+  const cw = canvas.width, ch = canvas.height;
+  const ir = img.naturalWidth / img.naturalHeight, cr = cw / ch;
+  let dw, dh, dx, dy;
+  if(cr > ir){ dw = cw; dh = cw / ir; dx = 0; dy = (ch - dh) / 2; }
+  else { dh = ch; dw = ch * ir; dy = 0; dx = (cw - dw) / 2; }
+  ctx.drawImage(img, dx, dy, dw, dh);
+}
+
+function start(){
+  sizeCanvas(); draw(0);
+  canvas.classList.add('ready');
+  loader.classList.add('hide');
   gsap.registerPlugin(ScrollTrigger);
-  video.pause();
-  const proxy = { t: 0 };
   const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: '#hero',
-      start: 'top top',
-      end: '+=' + CONFIG.pinScroll,
-      scrub: 0.6,
-      pin: true,
-      anticipatePin: 1,
-      invalidateOnRefresh: true
-    }
+    scrollTrigger: { trigger:'#hero', start:'top top', end:'+=' + CONFIG.pinScroll,
+      scrub: 0.4, pin:true, anticipatePin:1, invalidateOnRefresh:true }
   });
-  // scrub video currentTime across the whole timeline
-  tl.to(proxy, {
-    t: () => (video.duration || 1),
-    ease: 'none',
-    onUpdate: () => { if(video.readyState >= 2){ try{ video.currentTime = proxy.t; }catch(e){} } }
-  }, 0);
-  // cinematic text move within the same scrub
-  tl.fromTo('#title', { y:0, scale:1, opacity:1 }, { y:-40, scale:1.18, opacity:0, ease:'none' }, 0)
-    .fromTo('#sub',   { y:0, opacity:.95 },          { y:-30, opacity:0, ease:'none' }, 0)
-    .fromTo('#eyebrow',{ opacity:1 },                { opacity:0, ease:'none' }, 0);
+  tl.to(state, { f: CONFIG.frameCount - 1, ease:'none',
+      onUpdate: () => draw(Math.round(state.f)) }, 0)
+    .fromTo('#title',  { y:0, scale:1, opacity:1 }, { y:-40, scale:1.18, opacity:0, ease:'none' }, 0)
+    .fromTo('#sub',    { y:0, opacity:.95 },        { y:-30, opacity:0, ease:'none' }, 0)
+    .fromTo('#eyebrow',{ opacity:1 },               { opacity:0, ease:'none' }, 0);
+  window.addEventListener('resize', () => { sizeCanvas(); draw(Math.round(state.f)); ScrollTrigger.refresh(); });
   ScrollTrigger.refresh();
 }
-function loadVideo(){
-  fetch(CONFIG.videoSrc).then(r => r.blob()).then(blob => {
-    video.src = URL.createObjectURL(blob);
-    video.load();
-  }).catch(() => { video.src = CONFIG.videoSrc; video.load(); }); // fallback: direct src
-}
-video.addEventListener('loadedmetadata', () => {
-  video.classList.add('ready');
-  loader.classList.add('hide');
-  initScrub();
-});
-loadVideo();
 
-/* ---------- 2. OPTIONAL THREE.JS DEPTH LAYERS (warm bokeh parallax) ---------- */
+// preload ALL frames, then start (guarantees smoothness)
+for(let i = 0; i < CONFIG.frameCount; i++){
+  const img = new Image();
+  img.onload = img.onerror = () => {
+    loaded++;
+    pctEl.textContent = Math.round(loaded / CONFIG.frameCount * 100) + '%';
+    if(loaded === CONFIG.frameCount) start();
+  };
+  img.src = url(i);
+  frames[i] = img;
+}
+
+/* ---------- OPTIONAL THREE.JS DEPTH LAYERS ---------- */
 if (CONFIG.enableThree && window.THREE) {
   try {
-    const canvas = document.getElementById('three');
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:true });
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    const tcanvas = document.getElementById('three');
+    const renderer = new THREE.WebGLRenderer({ canvas:tcanvas, alpha:true, antialias:true });
+    renderer.setPixelRatio(Math.min(devicePixelRatio,2));
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, 0.1, 100);
     camera.position.z = 14;
-    // three depth layers of soft warm points
-    const layers = [];
-    const colors = [0xf0b46b, 0xe08a4a, 0x7a2e3a];
-    [ {n:60,z:-6,s:0.5}, {n:50,z:-2,s:0.8}, {n:40,z:2,s:1.2} ].forEach((L,i) => {
-      const g = new THREE.BufferGeometry();
-      const pos = new Float32Array(L.n*3);
+    const colors = [0xf0b46b,0xe08a4a,0x7a2e3a], layers = [];
+    [ {n:60,z:-6,s:0.5},{n:50,z:-2,s:0.8},{n:40,z:2,s:1.2} ].forEach((L,i) => {
+      const g = new THREE.BufferGeometry(), pos = new Float32Array(L.n*3);
       for(let k=0;k<L.n;k++){ pos[k*3]=(Math.random()-.5)*40; pos[k*3+1]=(Math.random()-.5)*26; pos[k*3+2]=L.z+(Math.random()-.5)*3; }
       g.setAttribute('position', new THREE.BufferAttribute(pos,3));
-      const m = new THREE.PointsMaterial({ color:colors[i], size:L.s, transparent:true, opacity:0.55, blending:THREE.AdditiveBlending, depthWrite:false });
-      const pts = new THREE.Points(g,m); pts.userData.s = L.s; scene.add(pts); layers.push(pts);
+      const m = new THREE.PointsMaterial({ color:colors[i], size:L.s, transparent:true, opacity:0.5, blending:THREE.AdditiveBlending, depthWrite:false });
+      scene.add(new THREE.Points(g,m)); layers.push(scene.children[scene.children.length-1]);
     });
-    let mx=0,my=0;
+    let mx=0,my=0,sY=0;
     addEventListener('mousemove', e => { mx=(e.clientX/innerWidth-.5); my=(e.clientY/innerHeight-.5); });
-    let scrollY=0; addEventListener('scroll', () => { scrollY = window.scrollY; }, {passive:true});
-    function resize(){ renderer.setSize(innerWidth,innerHeight); camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); }
-    addEventListener('resize', resize); resize();
+    addEventListener('scroll', () => { sY=window.scrollY; }, {passive:true});
+    function rsz(){ renderer.setSize(innerWidth,innerHeight); camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); }
+    addEventListener('resize', rsz); rsz();
     (function loop(t){
-      layers.forEach((l,i) => {
-        const depth = (i+1)*0.6;
-        l.rotation.z = t*0.00002*(i+1);
-        l.position.x = mx*depth;
-        l.position.y = -my*depth - scrollY*0.002*depth; // parallax with scroll
-      });
+      layers.forEach((l,i) => { const d=(i+1)*0.6; l.rotation.z=t*0.00002*(i+1); l.position.x=mx*d; l.position.y=-my*d - sY*0.002*d; });
       camera.position.x += (mx*1.5 - camera.position.x)*0.05;
-      renderer.render(scene,camera);
-      requestAnimationFrame(loop);
+      renderer.render(scene,camera); requestAnimationFrame(loop);
     })(0);
   } catch(e){ console.warn('three disabled', e); }
 }
 
-/* ---------- 3. gallery photos (optional) ---------- */
-(CONFIG.photos||[]).forEach(u => {
-  const img = document.createElement('img'); img.loading='lazy'; img.src=u; document.getElementById('grid').appendChild(img);
-});
+/* gallery */
+CONFIG.photos.forEach(u => { const img=document.createElement('img'); img.loading='lazy'; img.src=u; document.getElementById('grid').appendChild(img); });
 </script>
 </body>
 </html>
