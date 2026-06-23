@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Becky Leanna Photography — Cinematic | Boudoir in Sacramento, CA</title>
+<meta name="description" content="An intimate, empowering boudoir experience in Sacramento — warm direction, gorgeous light, and portraits you’ll treasure for years.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,900&family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --espresso:#1a0e0a; --maroon:#5e1f29; --terra:#e08a4a; --amber:#f0b46b; --cream:#f7ecdf; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Archivo',sans-serif;background:var(--espresso);color:var(--cream);line-height:1.6;overflow-x:hidden}
+  h1,h2{font-family:'Fraunces',serif}
+  .bar{position:fixed;top:0;left:0;right:0;z-index:60;background:rgba(20,10,7,.6);backdrop-filter:blur(6px);text-align:center;padding:7px;font-size:12px;letter-spacing:.06em}
+  .bar b{color:var(--amber)}
+  .hero{position:relative;height:100vh;width:100%;overflow:hidden;background:radial-gradient(120% 100% at 50% 20%, #3a1a12 0%, #1a0e0a 70%)}
+  #three{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.7}
+  #seq{position:absolute;inset:0;width:100%;height:100%;z-index:2;opacity:0;transition:opacity .8s ease}
+  #seq.ready{opacity:1}
+  .grade{position:absolute;inset:0;z-index:3;background:linear-gradient(180deg, rgba(20,10,7,.2) 0%, rgba(94,31,41,.22) 40%, rgba(20,10,7,.8) 100%);mix-blend-mode:multiply}
+  .vig{position:absolute;inset:0;z-index:3;box-shadow:inset 0 0 240px 60px rgba(20,10,7,.9)}
+  .content{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+  .eyebrow{letter-spacing:.4em;text-transform:uppercase;font-size:12px;color:var(--amber);margin-bottom:22px;font-weight:600}
+  .hero h1{font-weight:900;font-size:clamp(50px,12vw,160px);line-height:.92;background:linear-gradient(180deg,#fff 0%,#f0b46b 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 8px 60px rgba(0,0,0,.4)}
+  .hero .sub{font-family:'Fraunces';font-style:italic;font-size:clamp(18px,2.6vw,30px);margin-top:18px;opacity:.95;max-width:20ch}
+  .scrollcue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:5;font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.8}
+  .scrollcue span{display:block;width:1px;height:38px;margin:10px auto 0;background:linear-gradient(var(--amber),transparent)}
+  .loader{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;gap:16px;align-items:center;justify-content:center;background:var(--espresso);transition:opacity .6s ease}
+  .loader.hide{opacity:0;pointer-events:none}
+  .loader .ring{width:46px;height:46px;border:2px solid rgba(240,180,107,.25);border-top-color:var(--amber);border-radius:50%;animation:spin 1s linear infinite}
+  .loader .pct{font-size:12px;letter-spacing:.25em;color:#c9ad8c}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .reveal{position:relative;z-index:10;background:var(--espresso)}
+  .statement{max-width:1100px;margin:0 auto;padding:clamp(80px,16vw,200px) 28px}
+  .statement h2{font-weight:900;font-size:clamp(34px,6vw,82px);line-height:1.04}
+  .statement h2 .hl{color:var(--terra)}
+  .statement p{font-size:clamp(17px,2vw,22px);max-width:60ch;margin-top:28px;color:#e9d8c6}
+  .cta{display:inline-block;margin-top:44px;background:var(--terra);color:#1a0e0a;font-weight:800;text-decoration:none;padding:18px 46px;border-radius:100px;letter-spacing:.04em;text-transform:uppercase;font-size:14px;transition:.25s}
+  .cta:hover{transform:translateY(-3px);background:var(--amber);box-shadow:0 18px 50px rgba(224,138,74,.35)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 10px 10px}
+  .grid img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:4px;display:block}
+  footer{text-align:center;padding:60px 24px;color:#c9ad8c;font-size:13px;border-top:1px solid #2c1812}
+  footer a{color:var(--amber);text-decoration:none}
+  @media(max-width:680px){.grid{grid-template-columns:repeat(2,1fr)}}
+</style></head><body>
+<div class="bar">✨ Cinematic preview by <b>Boudoir Photography Club</b> — scroll to scrub</div>
+<section class="hero" id="hero">
+  <canvas id="three"></canvas><canvas id="seq"></canvas>
+  <div class="grade"></div><div class="vig"></div>
+  <div class="content"><div class="eyebrow" id="eyebrow">Boudoir • Sacramento</div><h1 id="title">BECKY<br>LEANNA</h1><div class="sub" id="sub">Beautifully, unapologetically you.</div></div>
+  <div class="scrollcue">Scroll<span></span></div>
+  <div class="loader" id="loader"><div class="ring"></div><div class="pct" id="pct">0%</div></div>
+</section>
+<section class="reveal">
+  <div class="statement"><h2>Sacramento boudoir that reminds you <span class="hl">how stunning you already are</span>.</h2><p>An intimate, empowering boudoir experience in Sacramento — warm direction, gorgeous light, and portraits you’ll treasure for years.</p><a href="#" class="cta">Book Your Session</a></div>
+  <div class="grid" id="grid"></div>
+  <footer>Becky Leanna Photography — Sacramento, CA · Featured on <a href="https://boudoirphotographyclub.com">Boudoir Photography Club</a></footer>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const CONFIG={ seqPath:'../../_assets/seq/silhouette/', frameCount:192, pad:4, enableThree:true, pinScroll:'240%',
+  photos:["https://lh3.googleusercontent.com/gps-cs-s/APNQkAFtE7EFu9IgmeGGO7IES63LMLlcd6rtPVgioaYFAejMkooyaf0EcGqaG4viwqZblCvAiNpC9cBQXXTrIwMxX3U2woR1OihFr5Qxp4Sy0pEdpusDLLnuGBUuhIqD1Vf_QAxI0Ordys_WgHgv=w1600-h1067-k-no","https://lh3.googleusercontent.com/gps-cs-s/APNQkAHcGrv0PJM0MrbNJjPJENtNO4qsJXmN7Ij8qe95eX4wn4y_11ioSSYw0FnmYBb0ic6Ak9Io2LR_Enyol3cnJxKzXhe67QBEoUhqKKpYtOAlPccvs7pfZz_Vb1NIP_sGhRcZML-vDKrtee6G=w6000-h4000-k-no","https://lh3.googleusercontent.com/gps-cs-s/APNQkAGT7r-DiAhWZs9KJERyP4zrOz0usSybp4eDwCqtDPPHFXNfon-ThPzfYYq7GBtJ3C3TU8ckAg0F9zVd6XdK6SO6AQ_IvglgP0yP-G-LfEHznlFdtaB508fWvuZyGhkEAC_qvg4x_yNH2EA=w6000-h4000-k-no","https://lh3.googleusercontent.com/gps-cs-s/APNQkAGoQeQZWpeVPzKM0Fkt9sijir9vIJF3FrwR5lkTMb30tZPNKBHuFJkeLrPJNBJQPKzo-2siB6E6bq7UM_NXW4FDgZfX5gfX-Vo09b62IBFnNNaKSCM6sfzmvhc3tVeeFG-FzP1OuYvClOAK=w5654-h3769-k-no","https://lh3.googleusercontent.com/gps-cs-s/APNQkAEDow6rDwi0QfYMhQdairbmotmgJgeuP0v3kIJRCPyooG8nq3T4xOyW1vkgprREXy31s6WJ4rexf0IRTsj8Dkp0BuxrnX6HAcflE86AATMiMX5cI6vtLPsWEEuDOFi99oGohaLiP_QZ1lrJ=w5131-h3421-k-no","https://lh3.googleusercontent.com/gps-cs-s/APNQkAFTziBnscE75QOJczqPyuKG0LDYSc3H8OgDWSMWiHGpcZH_NL3oXqi-tcwRZcIY7FobOignjmYOCBOUUsQ_J_2uH39NDHRXtj4FYn8jbMx-2_hGgzyvsC81ORcadulPivGvlyg3Rt6QlU1U=w2547-h3820-k-no"] };
+const canvas=document.getElementById('seq'),ctx=canvas.getContext('2d');
+const loader=document.getElementById('loader'),pctEl=document.getElementById('pct');
+const frames=new Array(CONFIG.frameCount),state={f:0};let loaded=0,dpr=Math.min(window.devicePixelRatio||1,2);
+function url(i){return CONFIG.seqPath+String(i+1).padStart(CONFIG.pad,'0')+'.jpg';}
+function sizeCanvas(){canvas.width=Math.round(canvas.clientWidth*dpr);canvas.height=Math.round(canvas.clientHeight*dpr);}
+function draw(i){const img=frames[Math.max(0,Math.min(CONFIG.frameCount-1,i))];if(!img||!img.complete||!img.naturalWidth)return;
+  const cw=canvas.width,ch=canvas.height,ir=img.naturalWidth/img.naturalHeight,cr=cw/ch;let dw,dh,dx,dy;
+  if(cr>ir){dw=cw;dh=cw/ir;dx=0;dy=(ch-dh)/2;}else{dh=ch;dw=ch*ir;dy=0;dx=(cw-dw)/2;}ctx.drawImage(img,dx,dy,dw,dh);}
+function start(){sizeCanvas();draw(0);canvas.classList.add('ready');loader.classList.add('hide');gsap.registerPlugin(ScrollTrigger);
+  const tl=gsap.timeline({scrollTrigger:{trigger:'#hero',start:'top top',end:'+='+CONFIG.pinScroll,scrub:0.4,pin:true,anticipatePin:1,invalidateOnRefresh:true}});
+  tl.to(state,{f:CONFIG.frameCount-1,ease:'none',onUpdate:()=>draw(Math.round(state.f))},0)
+    .fromTo('#title',{y:0,scale:1,opacity:1},{y:-40,scale:1.18,opacity:0,ease:'none'},0)
+    .fromTo('#sub',{y:0,opacity:.95},{y:-30,opacity:0,ease:'none'},0)
+    .fromTo('#eyebrow',{opacity:1},{opacity:0,ease:'none'},0);
+  window.addEventListener('resize',()=>{sizeCanvas();draw(Math.round(state.f));ScrollTrigger.refresh();});ScrollTrigger.refresh();}
+for(let i=0;i<CONFIG.frameCount;i++){const img=new Image();img.onload=img.onerror=()=>{loaded++;pctEl.textContent=Math.round(loaded/CONFIG.frameCount*100)+'%';if(loaded===CONFIG.frameCount)start();};img.src=url(i);frames[i]=img;}
+if(CONFIG.enableThree&&window.THREE){try{const tc=document.getElementById('three');const r=new THREE.WebGLRenderer({canvas:tc,alpha:true,antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,2));const sc=new THREE.Scene();const cam=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,0.1,100);cam.position.z=14;const cols=[0xf0b46b,0xe08a4a,0x7a2e3a],ly=[];[{n:60,z:-6,s:0.5},{n:50,z:-2,s:0.8},{n:40,z:2,s:1.2}].forEach((L,i)=>{const g=new THREE.BufferGeometry(),ps=new Float32Array(L.n*3);for(let k=0;k<L.n;k++){ps[k*3]=(Math.random()-.5)*40;ps[k*3+1]=(Math.random()-.5)*26;ps[k*3+2]=L.z+(Math.random()-.5)*3;}g.setAttribute('position',new THREE.BufferAttribute(ps,3));const m=new THREE.PointsMaterial({color:cols[i],size:L.s,transparent:true,opacity:0.5,blending:THREE.AdditiveBlending,depthWrite:false});sc.add(new THREE.Points(g,m));ly.push(sc.children[sc.children.length-1]);});let mx=0,my=0,sY=0;addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5);my=(e.clientY/innerHeight-.5);});addEventListener('scroll',()=>{sY=window.scrollY;},{passive:true});function rsz(){r.setSize(innerWidth,innerHeight);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();}addEventListener('resize',rsz);rsz();(function loop(t){ly.forEach((l,i)=>{const d=(i+1)*0.6;l.rotation.z=t*0.00002*(i+1);l.position.x=mx*d;l.position.y=-my*d-sY*0.002*d;});cam.position.x+=(mx*1.5-cam.position.x)*0.05;r.render(sc,cam);requestAnimationFrame(loop);})(0);}catch(e){console.warn('three off',e);}}
+CONFIG.photos.forEach(u=>{const img=document.createElement('img');img.loading='lazy';img.src=u;document.getElementById('grid').appendChild(img);});
+</script></body></html>
